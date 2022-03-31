@@ -49,13 +49,14 @@ function estaCorreto(arr1,arr2){
     console.log(arr2)
     if(arr1[posicao]===arr2[posicao]){
         if(arr1.length === arr2.length){
-            repeteSequenciaCorreta();
-            setTimeout(acendeBotaoRandom(),2000);
+            repeteSequenciaCorreta(arrayRespostaCorreta);
             arrayRespostaUsuario = [];
         }
     }
     else{
         window.alert("ERROU")
+        arrayRespostaCorreta=[];
+        arrayRespostaUsuario=[];
     }
 }
 
@@ -168,7 +169,7 @@ let varNumBotao = entreUmQuatro(1,4);
 
 function acendeBotao(numBotao){
     let varNumBotao = numBotao;
-        armazenaSequenciaArray(varNumBotao);
+/*         armazenaSequenciaArray(varNumBotao); */
         if(varNumBotao === 1){
             setTimeout(acendeLuzVerde, 1000)
             setTimeout(apagaLuzVerde, 2000)
@@ -226,16 +227,25 @@ botaoAzul.addEventListener("click", function(){
 //Função repete sequência
 
 function repeteSequenciaCorreta(arr){
-    arrayRespostaCorreta.forEach((element, i) => {
+   /*  arr.forEach((element, i) => {
         setTimeout(() => {
           acendeBotao(element);
         }, i * 2000);
-      });
+      }); */
+      let contador = 0;
+      let intervaloBotoes = setInterval(function(){
+          acendeBotao(arr[contador])
+          contador++
+          console.log(contador,arr)
+          if(contador>arr.length-1){
+              clearInterval(intervaloBotoes);
+              setTimeout(acendeBotaoRandom,2000);
+          }
+      },2000);
+
 }
 
 
 //modal(rever demo)
 //1.criar a function modal
 //2.selecionar o main
-//3.criar o container
-//4.criar o form, input e label
