@@ -57,8 +57,7 @@ main{
     left: 25%;
     z-index: 1;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
 }
 
 .divDisplay{
@@ -71,7 +70,7 @@ main{
     flex-direction: column;
 }
 
-.divDisplay input{
+.divDisplay button{
     background-color: #cecece;
     width: 100px;
     height: 30px;

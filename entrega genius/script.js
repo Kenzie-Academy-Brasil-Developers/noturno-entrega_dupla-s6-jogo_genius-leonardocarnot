@@ -21,18 +21,43 @@ botaoAzul.setAttribute("class", "botaoAzul")
 
 const displayJogo = document.createElement("div")
 displayJogo.setAttribute("class", "displayJogo")
-displayJogo.id  = 'dpJogo';
-
 
 //criando coteúdo display e botão que inicia o jogo
 let divDisplay = document.createElement("div");
 divDisplay.setAttribute("class","divDisplay")
-divDisplay.innerHTML = `<p>Bem-vindo ao jogo Genius. Clique no botão Iniciar o jogo para começar!</p>
-<input type="button" id="botaoInicia" onclick="iniciaJogo()" value="Iniciar o Jogo">`
+
+const textWelcome = document.createElement("p")
+textWelcome.innerText = "Bem-vindo ao jogo Genius. Clique no botão Iniciar o jogo para começar!"
+
+const buttonIniciar = document.createElement("button")
+buttonIniciar.innerText = "Iniciar o jogo"
+buttonIniciar.setAttribute("id","botaoIniciar")
+
 displayJogo.appendChild(divDisplay);
+displayJogo.appendChild(textWelcome);
+displayJogo.appendChild(buttonIniciar);
+
+buttonIniciar.addEventListener("click",function(){
+    acendeBotaoRandom();
+})
 
 
-
+//Função que verifica se botão clicado está correto
+function estaCorreto(arr1,arr2){
+    const posicao = arr1.length-1;
+    console.log(arr1)
+    console.log(arr2)
+    if(arr1[posicao]===arr2[posicao]){
+        if(arr1.length === arr2.length){
+            repeteSequenciaCorreta();
+            setTimeout(acendeBotaoRandom(),2000);
+            arrayRespostaUsuario = [];
+        }
+    }
+    else{
+        window.alert("ERROU")
+    }
+}
 
 //acrescentar o  dentro do main
 
@@ -162,66 +187,50 @@ function acendeBotao(numBotao){
         }
     }
 //Função que armazena sequência em um array
-let arraySequenciaCorreta  = [];
+let arrayRespostaCorreta  = [];
 function armazenaSequenciaArray(numSequencia){
-    arraySequenciaCorreta.push(numSequencia);
+    arrayRespostaCorreta.push(numSequencia);
 }
 
 //add evento de click ao botões
-let arraySequenciaUsuario = [];
-let contSequenciaUsuario = 0;
+let arrayRespostaUsuario = [];
 
-botaoVerde.addEventListener("click", function(e){
-    arraySequenciaUsuario.push(1);
-    contSequenciaUsuario++;
+
+botaoVerde.addEventListener("click", function(){
+    arrayRespostaUsuario.push(1);
+    estaCorreto(arrayRespostaUsuario,arrayRespostaCorreta);
+    /* contSequenciaUsuario++; */
 })
 
-botaoVermelho.addEventListener("click", function(e){
-    arraySequenciaUsuario.push(2);
-    contSequenciaUsuario++;
+botaoVermelho.addEventListener("click", function(){
+    arrayRespostaUsuario.push(2);
+    estaCorreto(arrayRespostaUsuario,arrayRespostaCorreta);
+    /* contSequenciaUsuario++; */
 })
 
-botaoAmarelo.addEventListener("click", function(e){
-    arraySequenciaUsuario.push(3);
-    contSequenciaUsuario++;
+botaoAmarelo.addEventListener("click", function(){
+    arrayRespostaUsuario.push(3);
+    estaCorreto(arrayRespostaUsuario,arrayRespostaCorreta);
+    /* contSequenciaUsuario++; */
 })
 
 
-botaoAzul.addEventListener("click", function(e){
-    arraySequenciaUsuario.push(4);
-    contSequenciaUsuario++;
+botaoAzul.addEventListener("click", function(){
+    arrayRespostaUsuario.push(4);
+    estaCorreto(arrayRespostaUsuario,arrayRespostaCorreta);    
+    /* contSequenciaUsuario++; */
 })
 
-//Função que faz o jogo funcionar
-function iniciaJogo(){
-    for(let indexRodada=0; indexRodada<10 ; indexRodada++){
-        acendeBotaoRandom();
-    }
-}
+
 
 //Função repete sequência
 
 function repeteSequenciaCorreta(arr){
-    let botaoCerto=0;
-    for(let i = 0; i<arr.length;i++){
-        botaoCerto = arr[i];
-        if(botaoCerto=== 1){
-            setTimeout(acendeLuzVerde, 1000)
-            setTimeout(apagaLuzVerde, 2000)
-        }
-        if(botaoCerto === 2){
-            setTimeout(acendeLuzVermelha, 1000)
-            setTimeout(apagaLuzVermelha, 2000)
-        }
-        if(botaoCerto === 3){
-            setTimeout(acendeLuzAmarela, 1000)
-            setTimeout(apagaLuzAmarela, 2000)
-        }
-        if(botaoCerto === 4){
-            setTimeout(acendeLuzAzul, 1000)
-            setTimeout(apagaLuzAzul, 2000)
-        }
-    }
+    arrayRespostaCorreta.forEach((element, i) => {
+        setTimeout(() => {
+          acendeBotao(element);
+        }, i * 2000);
+      });
 }
 
 
