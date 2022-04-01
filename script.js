@@ -256,5 +256,5 @@ function repeteSequenciaCorreta(arr){
               clearInterval(intervaloBotoes);
               setTimeout(acendeBotaoRandom,2000);
           }
-      },2000);
+      },3000);
 }
